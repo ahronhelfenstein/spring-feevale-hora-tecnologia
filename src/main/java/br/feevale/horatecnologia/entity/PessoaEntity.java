@@ -23,35 +23,65 @@ import lombok.Data;
  */
 @Entity
 @Table(name = "pessoa")
-@Data
-
 @SqlResultSetMapping(
-		name = "pessoaNativeDTO",
-		classes = {
-			@ConstructorResult(
-					targetClass = PessoaTesteDTO.class,
-					columns = {
-						@ColumnResult(name = "id", type = Long.class)
-						,
+        name = "pessoaNativeDTO",
+        classes = {
+            @ConstructorResult(
+                    targetClass = PessoaTesteDTO.class,
+                    columns = {
+                        @ColumnResult(name = "id", type = Long.class)
+                        ,
                         @ColumnResult(name = "nome", type = String.class)
-					}
-			)
-		}
+                    }
+            )
+        }
 )
 @NamedNativeQuery(name = "PessoaEntity.findAllByNative", query
-		= "select * from pessoa",
-		resultSetMapping = "pessoaNativeDTO")
+        = "select * from pessoa",
+        resultSetMapping = "pessoaNativeDTO")
 
 public class PessoaEntity implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-	private String nome;
+    private String nome;
 
-	private String cpf;
+    private String cpf;
 
-	private LocalDateTime createdDate = LocalDateTime.now();
+    private LocalDateTime createdDate = LocalDateTime.now();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
 
 }
