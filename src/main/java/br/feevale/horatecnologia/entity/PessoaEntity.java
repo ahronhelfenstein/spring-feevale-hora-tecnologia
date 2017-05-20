@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import br.feevale.horatecnologia.repository.dto.PessoaTesteDTO;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -23,23 +25,8 @@ import lombok.Data;
  */
 @Entity
 @Table(name = "pessoa")
-@SqlResultSetMapping(
-        name = "pessoaNativeDTO",
-        classes = {
-            @ConstructorResult(
-                    targetClass = PessoaTesteDTO.class,
-                    columns = {
-                        @ColumnResult(name = "id", type = Long.class)
-                        ,
-                        @ColumnResult(name = "nome", type = String.class)
-                    }
-            )
-        }
-)
-@NamedNativeQuery(name = "PessoaEntity.findAllByNative", query
-        = "select * from pessoa",
-        resultSetMapping = "pessoaNativeDTO")
-
+@Getter
+@Setter
 public class PessoaEntity implements Serializable {
 
     @Id
@@ -51,37 +38,5 @@ public class PessoaEntity implements Serializable {
     private String cpf;
 
     private LocalDateTime createdDate = LocalDateTime.now();
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
-    }
 
 }

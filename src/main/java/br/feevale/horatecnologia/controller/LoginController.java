@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Ahron Henrique Helfenstein <ahron.helfenstein@cwi.com.br>
  */
 @Controller
-@RequestMapping("/login")
 public class LoginController {
 
-    @RequestMapping(path = "/")
+    @GetMapping("/login")
     public String login(Model model) {
         return "login";
     }

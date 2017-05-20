@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.feevale.horatecnologia.entity.PessoaEntity;
 import br.feevale.horatecnologia.repository.PessoaRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  *
@@ -20,45 +22,52 @@ import br.feevale.horatecnologia.repository.PessoaRepository;
 @Controller
 public class HomeController {
 
-	@Autowired
-	private PessoaRepository pessoaRepository;
+    @Autowired
+    private PessoaRepository pessoaRepository;
 
-	@RequestMapping(path = "/", method = RequestMethod.GET)
-	public String home(Model model, @RequestParam(name = "nome", required = false) String nome) {
-		if (nome != null) {
-			model.addAttribute("pessoas", pessoaRepository.findByNomeLike(nome));
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    public String home(Model model, @RequestParam(name = "nome", required = false) String nome) {
+        if (nome != null) {
+            model.addAttribute("pessoas", pessoaRepository.findByNomeLike(nome));
 
-		} else {
-			model.addAttribute("pessoas", pessoaRepository.findAll());
-		}
+        } else {
+            model.addAttribute("pessoas", pessoaRepository.findAll());
+        }
 
-		return "index";
-	}
+        return "index";
+    }
 
-	@PostMapping(path = "/save")
-	public String save(@RequestParam("nome") String nome, @RequestParam("cpf") String cpf, @RequestParam(name = "id", required = false) Long id) {
-		PessoaEntity p = new PessoaEntity();
-		p.setId(id);
-		p.setCpf(cpf);
-		p.setNome(nome);
-		pessoaRepository.save(p);
-		return "redirect:/";
-	}
+    @PostMapping(path = "/save")
+    public String save(@RequestParam("nome") String nome, @RequestParam("cpf") String cpf, @RequestParam(name = "id", required = false) Long id) {
+        PessoaEntity p = new PessoaEntity();
+        p.setId(id);
+        p.setCpf(cpf);
+        p.setNome(nome);
+        pessoaRepository.save(p);
+        return "redirect:/";
+    }
 
-	@GetMapping(path = "/edit")
-	public String edit(@RequestParam(name = "id", required = false) Long id, Model model) {
-		PessoaEntity pessoa = new PessoaEntity();
-		if (id != null) {
-			pessoa = pessoaRepository.findOne(id);
-		}
-		model.addAttribute("pessoa", pessoa);
-		return "form";
-	}
+    @GetMapping(path = "/edit")
+    public String edit(@RequestParam(name = "id", required = false) Long id, Model model) {
+        PessoaEntity pessoa = new PessoaEntity();
 
-	@GetMapping(path = "/delete/{id}")
-	public String delete(@PathVariable("id") Long id) {
-		pessoaRepository.delete(id);
-		return "redirect:/";
-	}
+        if (id != null) {
+            pessoa = pessoaRepository.findOne(id);
+        }
+        model.addAttribute("pessoa", pessoa);
+        return "form";
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/200")
+    public void volta200() {
+
+    }
+
+    @GetMapping(path = "/delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        pessoaRepository.delete(id);
+        return "redirect:/";
+    }
 
 }

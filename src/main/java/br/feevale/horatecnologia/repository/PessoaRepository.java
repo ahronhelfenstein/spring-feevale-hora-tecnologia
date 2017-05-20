@@ -15,8 +15,6 @@ import br.feevale.horatecnologia.repository.dto.PessoaTesteDTO;
  */
 public interface PessoaRepository extends PagingAndSortingRepository<PessoaEntity, Long> {
 
-    public List<PessoaTesteDTO> findAllByNative();
-
     public List<PessoaEntity> findByNome(String nome);
 
     @Query("select p from PessoaEntity p where nome like %:nome%")
