@@ -3,21 +3,12 @@ package br.feevale.horatecnologia.entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import javax.persistence.ColumnResult;
-import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedNativeQuery;
-import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 
-import br.feevale.horatecnologia.repository.dto.PessoaTesteDTO;
-
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  *
@@ -25,8 +16,6 @@ import lombok.Setter;
  */
 @Entity
 @Table(name = "pessoa")
-@Getter
-@Setter
 public class PessoaEntity implements Serializable {
 
     @Id
@@ -39,4 +28,38 @@ public class PessoaEntity implements Serializable {
 
     private LocalDateTime createdDate = LocalDateTime.now();
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    
+    
 }
